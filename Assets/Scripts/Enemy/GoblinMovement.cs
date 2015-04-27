@@ -7,7 +7,7 @@ public class GoblinMovement : MonoBehaviour {
 
 	float timer;
 	Animator anim;
-	NavMeshAgent agent;
+	public NavMeshAgent agent;
 	Transform target;
 
 	// Use this for initialization

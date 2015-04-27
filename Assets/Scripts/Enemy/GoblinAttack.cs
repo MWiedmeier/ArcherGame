@@ -18,15 +18,15 @@ public class GoblinAttack : MonoBehaviour {
 	
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerHealth = player.GetComponent<PlayerHealth> ();
-		goblinHealth = GetComponent<GoblinHealth> ();
-		anim = GetComponent<Animator> ();
+		goblinHealth = GetComponentInParent<GoblinHealth> ();
+		anim = GetComponentInParent<Animator> ();
 
 	}
 
 	void OnTriggerEnter(Collider other){
 
-		Debug.Log ("Trigger Enter");
 		if (other.gameObject == player) {
+			Debug.Log ("In Attack Range");
 			playerInRange = true;
 		}
 	}
