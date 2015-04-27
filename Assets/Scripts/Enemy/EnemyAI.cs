@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour {
 	private float patrolTimer;
 	private int wayPointIdex;
 	private Animator anim;
-
+	private int point = 0;
 	void Awake(){
 
 		enemySight = GetComponent<EnemySight> ();
@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		playerHealth = player.GetComponent<PlayerHealth> ();
 		anim = GetComponent<Animator> ();
+		agent.destination = wayPoints [point].position;
 
 	}
 
@@ -44,8 +45,9 @@ public class EnemyAI : MonoBehaviour {
 		}
 		else{ 
 			// Follow waypoints
-			anim.SetFloat("Speed",0f);
-			//Debug.Log("Waypoints");
+			anim.SetFloat("Speed",2.1f);
+			//Debug.Log("Waypoints")
+			FollowRoute();
 		}
 
 	}
@@ -86,7 +88,11 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	void FollowRoute(){
-
+		if (agent.remainingDistance < 1) {
+			point++;
+			Debug.Log(point);
+			agent.destination = wayPoints[point].position;
+		}
 
 	}
 }
