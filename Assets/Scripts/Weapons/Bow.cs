@@ -21,11 +21,14 @@ public class Bow : MonoBehaviour {
 	float drawTotalTime;
 	bool isPulling;
 
+	//Script Variables
 	BowMovement bowMovement;
+	Quiver quiver;
 
 	void Awake(){
 
 		bowMovement = GetComponentInChildren<BowMovement> ();
+		quiver = GetComponent<Quiver> ();
 
 	}
 
@@ -93,9 +96,13 @@ public class Bow : MonoBehaviour {
 
 	private void fire()
 	{
-		GameObject arrow = spawnArrow ();
-		Rigidbody rb = arrow.transform.GetComponent<Rigidbody> ();
-		rb.AddRelativeForce(Vector3.forward * this.arrowForce);
+		if (quiver.hasArrows (1)) {
+			GameObject arrow = spawnArrow ();
+			Rigidbody rb = arrow.transform.GetComponent<Rigidbody> ();
+			rb.AddRelativeForce (Vector3.forward * this.arrowForce);
+
+			quiver.useArrow(1);
+		}
 
 	}
 

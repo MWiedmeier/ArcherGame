@@ -57,14 +57,13 @@ public class EnemyAI : MonoBehaviour {
 		anim.SetFloat ("Speed", 1.1f);
 		Vector3 sightingDeltaPos = enemySight.personalLastSighting - transform.position;
 
+		Debug.Log ("SQR:" + sightingDeltaPos.sqrMagnitude);
 		if (sightingDeltaPos.sqrMagnitude > 4f) {
 
 			agent.destination = enemySight.personalLastSighting;
 		}
 
-		//Set the enemys chase speed here, maybe using animator?
-		//agent.speed = chaseSpeed;
-
+		Debug.Log ("Remaining" + agent.remainingDistance);
 		if (agent.remainingDistance < agent.stoppingDistance) {
 
 			anim.SetFloat("Speed",0f);
@@ -74,8 +73,10 @@ public class EnemyAI : MonoBehaviour {
 			if (chaseTimer >= chaseWaitTime) {
 
 				//Reset the personal last sighting for the enemy
+				Debug.Log("I Give Up!");
 				enemySight.personalLastSighting = enemySight.resetPosition;
 				chaseTimer = 0f;
+				agent.destination = wayPoints[point].position;
 
 			}
 
@@ -88,7 +89,8 @@ public class EnemyAI : MonoBehaviour {
 	}
 
 	void FollowRoute(){
-		if (agent.remainingDistance < 1) {
+
+		if (agent.remainingDistance < 3) {
 			point++;
 			Debug.Log(point);
 			agent.destination = wayPoints[point].position;

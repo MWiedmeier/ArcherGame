@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour {
 	public Image damageImage;
 	public float flashSpeed = 5f;
 	public Color flashColor = new Color (1f,0f,0f,0.1f);
+	public Slider healthSlider;
+	public Text hpText;
 
 	bool isDead;
 	bool damaged;
@@ -18,6 +20,7 @@ public class PlayerHealth : MonoBehaviour {
 	void Awake () {
 	
 		currentHealth = startingHealth;
+		healthSlider.value = currentHealth;
 
 	}
 	
@@ -31,6 +34,9 @@ public class PlayerHealth : MonoBehaviour {
 		}
 
 		damaged = false;
+		healthSlider.value = currentHealth;
+		hpText.text = "HP: " + currentHealth + "/" + startingHealth;
+
 	}
 
 	public void TakeDamage(int amount){
